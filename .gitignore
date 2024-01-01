@@ -16,9 +16,14 @@
 # production
 /build
 
+
+
+
 # misc
 .DS_Store
 *.pem
+
+
 
 # debug
 npm-debug.log*
@@ -27,10 +32,14 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env
+
+
+.vscode
 
 # vercel
 .vercel
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts
+next-env.NEXT_PUBLIC_d.ts
