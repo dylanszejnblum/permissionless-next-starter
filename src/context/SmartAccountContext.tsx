@@ -14,11 +14,18 @@ import {
   createPimlicoPaymasterClient,
 } from "permissionless/clients/pimlico";
 import React, { ReactNode, useContext, useState, useEffect } from "react";
-import { createPublicClient, formatEther, http } from "viem";
+import {
+  createPublicClient,
+  formatEther,
+  http,
+  BaseError,
+  ContractFunctionRevertedError,
+} from "viem";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
 import { polygonMumbai } from "viem/chains";
 import { useWalletClient } from "wagmi";
 import { toast } from "sonner";
+import { contract } from "@/utils/contract";
 
 // Context
 export const SmartAccountContext = React.createContext({
@@ -241,9 +248,41 @@ export const SmartAccountProvider: React.FC<SmartAccountProviderProps> = ({
 
   const mintErc721 = async () => {
     try {
-      console.log("not working yet");
-    } catch (error) {
-      console.error("Failed to parse data or send transaction:", error);
+      const gasPrices = await bundlerClient.getUserOperationGasPrice();
+
+      // const data = encodeFunctionData({
+      //   abi: contract.abi,
+      //   functionName: "safeMint",
+      //   args: [smartAddress as `0x${string}`],
+      // });
+
+      const { request } = await publicClient.simulateContract({
+        address: contract.address,
+        abi: contract.abi,
+        functionName: "safeMint",
+        args: [smartAddress as `0x${string}`],
+        account: smartAddress as `0x${string}`,
+      });
+
+      console.log(request);
+
+      // sendUserOp(
+      //   JSON.stringify({
+      //     to: contract.address,
+      //     data: hash,
+      //   })
+      // );
+    } catch (err) {
+      if (err instanceof BaseError) {
+        const revertError = err.walk(
+          (err) => err instanceof ContractFunctionRevertedError
+        );
+        if (revertError instanceof ContractFunctionRevertedError) {
+          const errorName = revertError.data?.errorName ?? "";
+          // do something with `errorName`
+          console.log(errorName);
+        }
+      }
     }
   };
 

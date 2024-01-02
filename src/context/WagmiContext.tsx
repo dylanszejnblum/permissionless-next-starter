@@ -21,7 +21,7 @@ const { chains, webSocketPublicClient } = configureChains(
 );
 
 const config = createConfig({
-  autoConnect: false,
+  autoConnect: true,
   publicClient: createPublicClient({
     chain: polygonMumbai,
     transport: http(),

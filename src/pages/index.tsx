@@ -10,6 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { useSmartAccountContext } from "@/context/SmartAccountContext";
 import { useState } from "react";
+import Head from "next/head";
 
 import SendTransactionButton from "@/components/send-transaction-modal";
 import QrCodeModal from "@/components/qrcode-modal";
@@ -21,7 +22,7 @@ const Dashboard = () => {
     Eoa,
     privateKey,
     createKernelAccount,
-
+    mintErc721,
     selectedAccount,
     importPrivateKeyToAccount,
     createSimpleAccount,
@@ -36,6 +37,9 @@ const Dashboard = () => {
   };
   return (
     <>
+      <Head>
+        <title> Starter Kit</title>
+      </Head>
       <div className=" flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between space-y-2">
@@ -47,7 +51,7 @@ const Dashboard = () => {
               <CardHeader>
                 <CardTitle>Eoa Setup</CardTitle>
               </CardHeader>
-              <CardContent className="pl-2 flex flex-col ">
+              <CardContent className="flex flex-col space-y-2">
                 <div className="flex flex-col space-y-2">
                   <Button
                     onClick={() => {
@@ -88,12 +92,21 @@ const Dashboard = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent className="flex flex-col space-y-2">
-                <a href="https://mumbaifaucet.com/">
-                  <Button variant="outline">Alchemy Faucet</Button>
-                </a>
-                <a href="https://faucet.polygon.technology/">
-                  <Button variant="outline"> Polygon Faucet</Button>
-                </a>
+                <div className="flex flex-col space-y-2">
+                  <a href="https://mumbaifaucet.com/" className="w-full">
+                    <Button variant="outline" className="w-full">
+                      Alchemy Faucet
+                    </Button>
+                  </a>
+                  <a
+                    href="https://faucet.polygon.technology/"
+                    className="w-full"
+                  >
+                    <Button variant="outline" className="w-full">
+                      Polygon Faucet
+                    </Button>
+                  </a>
+                </div>
               </CardContent>
             </Card>
           </div>

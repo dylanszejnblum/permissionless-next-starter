@@ -23,4 +23,5 @@ export default function App({ Component, pageProps }: AppProps) {
       </WagmiProvider>
     </ThemeProvider>
   );
+  3;
 }
