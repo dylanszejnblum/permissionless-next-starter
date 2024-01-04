@@ -249,29 +249,15 @@ export const SmartAccountProvider: React.FC<SmartAccountProviderProps> = ({
   const mintErc721 = async () => {
     try {
       const gasPrices = await bundlerClient.getUserOperationGasPrice();
-
-      // const data = encodeFunctionData({
-      //   abi: contract.abi,
-      //   functionName: "safeMint",
-      //   args: [smartAddress as `0x${string}`],
-      // });
-
-      const { request } = await publicClient.simulateContract({
+      const mint = await smartAccountClient.writeContract({
         address: contract.address,
         abi: contract.abi,
-        functionName: "safeMint",
-        args: [smartAddress as `0x${string}`],
-        account: smartAddress as `0x${string}`,
+        functionName: "mint",
+        args: [smartAddress],
       });
+      console.log(mint);
 
-      console.log(request);
-
-      // sendUserOp(
-      //   JSON.stringify({
-      //     to: contract.address,
-      //     data: hash,
-      //   })
-      // );
+      toast("NFT minted sent successfully:");
     } catch (err) {
       if (err instanceof BaseError) {
         const revertError = err.walk(

@@ -5,6 +5,7 @@ import { SmartAccountProvider } from "@/context/SmartAccountContext";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -18,6 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
         <SmartAccountProvider>
           <Navbar />
           <Component {...pageProps} />
+          <Toaster />
           <Footer />
         </SmartAccountProvider>
       </WagmiProvider>

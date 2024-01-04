@@ -1,5 +1,5 @@
 export const contract = {
-  address: "0x0488bEE1Ec682db0F0E74AB52faFdDdEf10Af123",
+  address: "0x62a56c3a02B08a404cBdE730d5D8268A28cA0aE4",
   abi: [
     {
       inputs: [
@@ -20,13 +20,7 @@ export const contract = {
       type: "function",
     },
     {
-      inputs: [
-        {
-          internalType: "address",
-          name: "initialOwner",
-          type: "address",
-        },
-      ],
+      inputs: [],
       stateMutability: "nonpayable",
       type: "constructor",
     },
@@ -134,28 +128,6 @@ export const contract = {
       type: "error",
     },
     {
-      inputs: [
-        {
-          internalType: "address",
-          name: "owner",
-          type: "address",
-        },
-      ],
-      name: "OwnableInvalidOwner",
-      type: "error",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
-          name: "account",
-          type: "address",
-        },
-      ],
-      name: "OwnableUnauthorizedAccount",
-      type: "error",
-    },
-    {
       anonymous: false,
       inputs: [
         {
@@ -206,41 +178,21 @@ export const contract = {
       type: "event",
     },
     {
-      anonymous: false,
-      inputs: [
-        {
-          indexed: true,
-          internalType: "address",
-          name: "previousOwner",
-          type: "address",
-        },
-        {
-          indexed: true,
-          internalType: "address",
-          name: "newOwner",
-          type: "address",
-        },
-      ],
-      name: "OwnershipTransferred",
-      type: "event",
-    },
-    {
-      inputs: [],
-      name: "renounceOwnership",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
       inputs: [
         {
           internalType: "address",
-          name: "to",
+          name: "user",
           type: "address",
         },
       ],
-      name: "safeMint",
-      outputs: [],
+      name: "mint",
+      outputs: [
+        {
+          internalType: "uint256",
+          name: "",
+          type: "uint256",
+        },
+      ],
       stateMutability: "nonpayable",
       type: "function",
     },
@@ -365,19 +317,6 @@ export const contract = {
       inputs: [
         {
           internalType: "address",
-          name: "newOwner",
-          type: "address",
-        },
-      ],
-      name: "transferOwnership",
-      outputs: [],
-      stateMutability: "nonpayable",
-      type: "function",
-    },
-    {
-      inputs: [
-        {
-          internalType: "address",
           name: "owner",
           type: "address",
         },
@@ -444,19 +383,6 @@ export const contract = {
           internalType: "string",
           name: "",
           type: "string",
-        },
-      ],
-      stateMutability: "view",
-      type: "function",
-    },
-    {
-      inputs: [],
-      name: "owner",
-      outputs: [
-        {
-          internalType: "address",
-          name: "",
-          type: "address",
         },
       ],
       stateMutability: "view",

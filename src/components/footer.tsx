@@ -19,7 +19,13 @@ const Footer = () => {
               Made with ❤️ from 🇦🇷
             </span>
 
-            <Link href={"#"} target="_blank" rel="noreferrer">
+            <Link
+              href={
+                "https://github.com/dylanszejnblum/permissionless-next-starter"
+              }
+              target="_blank"
+              rel="noreferrer"
+            >
               <Button className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
                 <GitHubLogoIcon className="h-5 w-5 fill-current mr-2" /> Star it
                 on Github
