@@ -31,6 +31,9 @@ const Footer = () => {
                 on Github
               </Button>
             </Link>
+            <span className="block text-sm text-gray-500 dark:text-gray-400">
+              0x202b23Ec890986BFbAD985B747b10e656cCB6DFe
+            </span>
           </div>
         </div>
       </footer>

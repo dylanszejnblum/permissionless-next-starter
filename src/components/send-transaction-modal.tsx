@@ -24,17 +24,21 @@ import {
 
 import { SendIcon } from "lucide-react";
 import { useSmartAccountContext } from "@/context/SmartAccountContext";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+
 import { parseEther } from "viem";
+import Link from "next/link";
 
 const SendTransactionModal = () => {
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
+  const { smartAddress } = useSmartAccountContext();
 
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
-          <Button>
+          <Button disabled={!smartAddress}>
             <SendIcon className="mr-2" /> Send
           </Button>
         </DialogTrigger>
@@ -54,7 +58,7 @@ const SendTransactionModal = () => {
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>
-        <Button>
+        <Button disabled={!smartAddress}>
           <SendIcon className="mr-2" /> Send
         </Button>
       </DrawerTrigger>
@@ -77,10 +81,12 @@ const SendTransactionModal = () => {
 };
 
 function TransactionForm({ className }: React.ComponentProps<"form">) {
-  const { balance, sendUserOp } = useSmartAccountContext();
+  const { balance, sendUserOp, smartAddress } = useSmartAccountContext();
   const [address, setAddress] = React.useState<string>("");
   const [amount, setAmount] = React.useState<string>("");
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  const isBalanceZero = Number(balance) === 0;
 
   // Handle change in the address input
   const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -104,7 +110,7 @@ function TransactionForm({ className }: React.ComponentProps<"form">) {
         JSON.stringify({
           to: address,
           value: parseEther(amount).toString(),
-        }),
+        })
       );
       setAmount("");
       setAddress("");
@@ -160,6 +166,23 @@ function TransactionForm({ className }: React.ComponentProps<"form">) {
       >
         Available Balance: {balance}
       </label>
+
+      {isBalanceZero && (
+        <Alert>
+          <AlertTitle>Heads up!</AlertTitle>
+          <AlertDescription>
+            You dont have balance please send MATIC to your address or top up
+            with a faucet
+          </AlertDescription>
+
+          <Link href="https://mumbaifaucet.com/">
+            <Button variant="outline" className="w-full">
+              Alchemy Faucet
+            </Button>
+          </Link>
+        </Alert>
+      )}
+
       <div className="flex items-center justify-center mb-5 w-full">
         {isLoading ? (
           <>
@@ -184,7 +207,7 @@ function TransactionForm({ className }: React.ComponentProps<"form">) {
           </>
         ) : (
           <>
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full" disabled={isBalanceZero}>
               Send
             </Button>
           </>

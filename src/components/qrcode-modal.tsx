@@ -26,14 +26,17 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { QrCodeIcon, CopyIcon } from "lucide-react";
 import { useSmartAccountContext } from "@/context/SmartAccountContext";
 import { QRCodeSVG } from "qrcode.react";
+import { toast } from "sonner";
 
 const QrCodeModal = () => {
+  const { smartAddress } = useSmartAccountContext();
+
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   const triggerButton = (
-    <Button onClick={() => setOpen(true)}>
-      <QrCodeIcon className="mr-2" /> QR-Code
+    <Button onClick={() => setOpen(true)} disabled={!smartAddress}>
+      <QrCodeIcon className="mr-2" /> QR Code
     </Button>
   );
 
@@ -59,7 +62,7 @@ const QrCodeModal = () => {
       <DrawerTrigger asChild>{triggerButton}</DrawerTrigger>
       <DrawerContent>
         <DrawerHeader className="text-left">
-          <DrawerTitle>Edit profile</DrawerTitle>
+          <DrawerTitle>QR code</DrawerTitle>
           <DrawerDescription>
             Only send funds to this address in the Polygon Network
           </DrawerDescription>
@@ -78,6 +81,19 @@ const QrCodeModal = () => {
 function QrCodeCard({}: React.ComponentProps<"form">) {
   // Handle change in the address input
   const { smartAddress, selectedAccount } = useSmartAccountContext();
+  const copyAddressToClipboard = () => {
+    if (navigator.clipboard && smartAddress) {
+      navigator.clipboard
+        .writeText(smartAddress)
+        .then(() => {
+          toast("Address Copied to clipboard");
+        })
+        .catch((err) => {
+          console.error("Error in copying text: ", err);
+          toast("Failed to copy address");
+        });
+    }
+  };
   return (
     <Card>
       <CardContent>
@@ -95,7 +111,7 @@ function QrCodeCard({}: React.ComponentProps<"form">) {
         <span className="text-center">
           Only send funds to this address in the Polygon Network
         </span>
-        <Button className="w-full mt-4">
+        <Button className="w-full mt-4" onClick={copyAddressToClipboard}>
           {" "}
           {/* You can adjust mt-4 to increase or decrease the space */}
           <CopyIcon /> Copy Address

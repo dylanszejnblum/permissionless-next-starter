@@ -144,6 +144,7 @@ const Dashboard = () => {
                   onClick={() => {
                     createSimpleAccount();
                   }}
+                  disabled={!Eoa}
                 >
                   Simple Account
                 </Button>
@@ -152,6 +153,7 @@ const Dashboard = () => {
                   onClick={() => {
                     createKernelAccount();
                   }}
+                  disabled={!Eoa}
                 >
                   Kernel Account
                 </Button>
@@ -160,6 +162,7 @@ const Dashboard = () => {
                     createSafeAccount();
                   }}
                   className="bg-green-500"
+                  disabled={!Eoa}
                 >
                   Safe Account
                 </Button>
@@ -168,6 +171,7 @@ const Dashboard = () => {
                     createBiconomyAccount();
                   }}
                   className="bg-red-500"
+                  disabled={!Eoa}
                 >
                   Biconomy Account
                 </Button>
@@ -192,6 +196,7 @@ const Dashboard = () => {
                   onClick={() => {
                     getSmartAccountBalance();
                   }}
+                  disabled={!smartAddress}
                 >
                   Get Balance
                 </Button>
@@ -199,7 +204,7 @@ const Dashboard = () => {
                 <QrCodeModal />
 
                 <SendTransactionButton />
-                <Button onClick={handleMint}>
+                <Button onClick={handleMint} disabled={!smartAddress}>
                   {isMinting ? (
                     <>
                       {" "}

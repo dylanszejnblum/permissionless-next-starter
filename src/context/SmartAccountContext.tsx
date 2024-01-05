@@ -43,9 +43,7 @@ export const SmartAccountContext = React.createContext({
   createBiconomyAccount: async () => {},
   getSmartAccountBalance: async () => {},
   mintErc721: async () => {},
-
   importPrivateKeyToAccount: async (_importedPrivateKey: string) => {},
-
   sendUserOp: async (_data: string) => {},
 });
 
@@ -257,7 +255,13 @@ export const SmartAccountProvider: React.FC<SmartAccountProviderProps> = ({
       });
       console.log(mint);
 
-      toast("NFT minted sent successfully:");
+      toast(`NFT minted successfully`, {
+        action: {
+          label: "View on Polygon Scan",
+          onClick: () =>
+            (window.location.href = `https://mumbai.polygonscan.com/tx/${mint}`),
+        },
+      });
     } catch (err) {
       if (err instanceof BaseError) {
         const revertError = err.walk(
@@ -267,6 +271,7 @@ export const SmartAccountProvider: React.FC<SmartAccountProviderProps> = ({
           const errorName = revertError.data?.errorName ?? "";
           // do something with `errorName`
           console.log(errorName);
+          toast.error("Error On mint");
         }
       }
     }
@@ -283,8 +288,16 @@ export const SmartAccountProvider: React.FC<SmartAccountProviderProps> = ({
         maxPriorityFeePerGas: gasPrices.fast.maxPriorityFeePerGas, // if using Pimlico
       });
       console.log("Transaction sent successfully:", tx);
-      toast("Transaction sent successfully:");
+
+      toast(`Transaction sent successfully`, {
+        action: {
+          label: "View on Polygon Scan",
+          onClick: () =>
+            (window.location.href = `https://mumbai.polygonscan.com/tx/${tx}`),
+        },
+      });
     } catch (error) {
+      toast.error("Error sending Tx");
       console.error("Failed to parse data or send transaction:", error);
     }
   };
