@@ -7,6 +7,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
+import { DynamicWidget } from "@dynamic-labs/sdk-react-core";
 import { useConnect, useAccount, useDisconnect } from "wagmi";
 
 const ConnectButton = () => {
@@ -42,6 +43,11 @@ const ConnectButton = () => {
                         " (connecting)"}
                     </Button>
                   ))}
+                  <SheetTitle>Connect with passkeys via Dynamic</SheetTitle>
+
+                  <div className="flex  justify-center w-full">
+                    <DynamicWidget />
+                  </div>
                 </div>
               </SheetDescription>
             </SheetHeader>

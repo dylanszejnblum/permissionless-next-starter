@@ -6,6 +6,12 @@ import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
 import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
+import {
+  DynamicContextProvider,
+  DynamicWidget,
+} from "@dynamic-labs/sdk-react-core";
+import { EthereumWalletConnectors } from "@dynamic-labs/ethereum";
+import { DynamicWagmiConnector } from "@dynamic-labs/wagmi-connector";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -15,14 +21,23 @@ export default function App({ Component, pageProps }: AppProps) {
       enableSystem
       disableTransitionOnChange
     >
-      <WagmiProvider>
-        <SmartAccountProvider>
-          <Navbar />
-          <Component {...pageProps} />
-          <Toaster />
-          <Footer />
-        </SmartAccountProvider>
-      </WagmiProvider>
+      <DynamicContextProvider
+        settings={{
+          environmentId: process.env.NEXT_PUBLIC_DYMANIC_ENVIROMENT as string,
+          walletConnectors: [EthereumWalletConnectors],
+        }}
+      >
+        <DynamicWagmiConnector>
+          <WagmiProvider>
+            <SmartAccountProvider>
+              <Navbar />
+              <Component {...pageProps} />
+              <Toaster />
+              <Footer />
+            </SmartAccountProvider>
+          </WagmiProvider>
+        </DynamicWagmiConnector>
+      </DynamicContextProvider>
     </ThemeProvider>
   );
   3;
