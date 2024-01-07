@@ -27,7 +27,7 @@ export default function Web3AuthConnectorInstance(chains: Chain[]) {
   const web3AuthInstance = new Web3AuthNoModal({
     clientId: CLIENT_ID,
     chainConfig,
-    web3AuthNetwork: OPENLOGIN_NETWORK.TESTNET,
+    web3AuthNetwork: OPENLOGIN_NETWORK.SAPPHIRE_DEVNET,
   });
 
   const privateKeyProvider = new EthereumPrivateKeyProvider({

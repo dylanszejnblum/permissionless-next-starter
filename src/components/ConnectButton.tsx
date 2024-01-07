@@ -43,7 +43,7 @@ const ConnectButton = () => {
                         " (connecting)"}
                     </Button>
                   ))}
-                  <SheetTitle>Connect with passkeys via Dynamic</SheetTitle>
+                  <SheetTitle>Connect with Dynamic</SheetTitle>
 
                   <div className="flex  justify-center w-full">
                     <DynamicWidget />
